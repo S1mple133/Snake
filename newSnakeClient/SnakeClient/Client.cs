@@ -23,6 +23,7 @@ namespace SnakeClient
 
         public void Disconnect()
         {
+            server.Shutdown(SocketShutdown.Both);
             server.Disconnect(true);
 
         }
@@ -30,19 +31,22 @@ namespace SnakeClient
         public byte[] Receive(int bufferSize)
         {
             byte[] buffer = new byte[bufferSize];
-            server.Receive(buffer);
-
+            if (IsActive())
+                server.Receive(buffer);
             return buffer;
         }
 
-        public bool IsActive() {
+        public bool IsActive()
+        {
             return server.Connected;
         }
 
         public void Send(Player player)
         {
-            server.Send(new byte[] { (byte)player.Position.X, (byte)player.Position.Y, (byte)player.Length });
-
+            if (IsActive())
+                server.Send(new byte[] { (byte)player.Position.X, (byte)player.Position.Y, (byte)player.Length });
+            else
+                Console.WriteLine("LOST CONNECTION");
         }
     }
 }

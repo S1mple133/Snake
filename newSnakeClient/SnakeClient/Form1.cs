@@ -7,15 +7,20 @@ namespace SnakeClient
 
     public partial class Form1 : Form
     {
-
-        Game game;
         bool isFullscreen = false;
 
         public Form1()
         {
             InitializeComponent();
-            game = new Game();
-            game.Setup(this);
+            
+            SetWindowSize();
+
+            Util.LoadConfig("configFile.conf");
+
+            GameLoop.Interval = Util.TICK_INTERVAL;
+            GameLoop.Start();
+
+            Game.Setup();
         }
 
 
@@ -48,7 +53,14 @@ namespace SnakeClient
 
         private void GameLoop_Tick(object sender, EventArgs e)
         {
-            game.Loop(this);
+            Game.Loop();
+            if (Snake.GetSnakeAmount() != Util.ONLINE_PLAYERS)
+            {
+                Util.ONLINE_PLAYERS = Snake.GetSnakeAmount();
+                SetOnlinePlayersLabel(Util.ONLINE_PLAYERS);
+            }
+
+            Canvas.Invalidate();
         }
 
         private void UpdateCanvas(object sender, PaintEventArgs e)
@@ -80,17 +92,17 @@ namespace SnakeClient
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
-                game.Player.Dir = Direction.UP;
+                Game.Player.Dir = Direction.UP;
             else if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-                game.Player.Dir = Direction.LEFT;
+                Game.Player.Dir = Direction.LEFT;
             else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
-                game.Player.Dir = Direction.DOWN;
+                Game.Player.Dir = Direction.DOWN;
             else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-                game.Player.Dir = Direction.RIGHT;
+                Game.Player.Dir = Direction.RIGHT;
             else if (e.KeyCode == Keys.Escape)
             {
-                game.Client.Disconnect();
-                Application.Exit();
+                Game.DisconnectFromServer();
+                Environment.Exit(0);
             }
             else if (e.KeyCode == Keys.F)
             {

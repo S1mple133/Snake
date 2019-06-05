@@ -45,7 +45,7 @@
             this.Canvas.BackColor = System.Drawing.Color.Black;
             this.Canvas.Dock = System.Windows.Forms.DockStyle.Left;
             this.Canvas.Location = new System.Drawing.Point(0, 0);
-            this.Canvas.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.Canvas.Margin = new System.Windows.Forms.Padding(1);
             this.Canvas.Name = "Canvas";
             this.Canvas.Size = new System.Drawing.Size(620, 588);
             this.Canvas.TabIndex = 0;
@@ -72,8 +72,8 @@
             this.ClientSize = new System.Drawing.Size(1068, 588);
             this.Controls.Add(this.onlinePlayersLabel);
             this.Controls.Add(this.Canvas);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

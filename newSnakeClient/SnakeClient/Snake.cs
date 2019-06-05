@@ -101,6 +101,11 @@ namespace SnakeClient
             Head.X = x;
             Head.Y = y;
 
+            if (Length == 0)
+            {
+                Snakes.Remove(this);
+                return;
+            }
             Tail.Add(tempPos);
             if (Tail.Count() >= Length)
                 Tail.RemoveAt(0);

@@ -181,6 +181,9 @@ namespace Util
         internal static string stopServer(bool resetCmd)
         {
             server.Close();
+
+            Snake.DisconnectFromAllSnakes();
+
             Snake.getSnakes().Clear();
 
             // Reset cmd

@@ -50,6 +50,18 @@ namespace Util
             Util.addNewSnake(ip);
         }
 
+        public void Disconnect()
+        {
+            getClient().Shutdown(SocketShutdown.Both);
+            getClient().Disconnect(true);
+        }
+
+        public static void DisconnectFromAllSnakes()
+        {
+            foreach (Snake snake in snakeList)
+                snake.Disconnect();
+        }
+
         public int getId()
         {
             return id;
@@ -158,7 +170,7 @@ namespace Util
                         Util.logData(allData);
                     }
                 }
-                
+
 
                 accumulatedData = 0;
             }
@@ -197,6 +209,7 @@ namespace Util
 
             try
             {
+                getClient().Shutdown(SocketShutdown.Both);
                 getClient().Disconnect(true);
             }
             catch (SocketException)

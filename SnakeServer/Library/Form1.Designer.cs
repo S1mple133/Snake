@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Util
 {
@@ -32,6 +33,7 @@ namespace Util
             this.commandLine.Invoke((MethodInvoker)delegate { commandLine.ScrollToCaret(); });
         }
 
+
         /// <summary>
         /// Sets the online snake list
         /// </summary>
@@ -55,9 +57,9 @@ namespace Util
 
         public void resetCmd()
         {
-            this.onlineSnakes.Invoke((MethodInvoker)delegate { this.onlineSnakes.Text = ""; });
-            this.commandLine.Invoke((MethodInvoker)delegate { this.commandLine.Text = ""; });
-            this.bannedIps.Invoke((MethodInvoker)delegate { this.bannedIps.Text = ""; });
+                this.onlineSnakes.Invoke((MethodInvoker)delegate { this.onlineSnakes.Text = ""; });
+                this.commandLine.Invoke((MethodInvoker)delegate { this.commandLine.Text = ""; });
+                this.bannedIps.Invoke((MethodInvoker)delegate { this.bannedIps.Text = ""; });
         }
 
         /// <summary>
@@ -120,87 +122,87 @@ namespace Util
             // inputLine
             // 
             this.inputLine.Font = new System.Drawing.Font("Courier New", 10F);
-            this.inputLine.Location = new System.Drawing.Point(669, 1112);
-            this.inputLine.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.inputLine.Location = new System.Drawing.Point(446, 723);
+            this.inputLine.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.inputLine.Multiline = true;
             this.inputLine.Name = "inputLine";
-            this.inputLine.Size = new System.Drawing.Size(1002, 43);
+            this.inputLine.Size = new System.Drawing.Size(669, 29);
             this.inputLine.TabIndex = 1;
             this.inputLine.TextChanged += new System.EventHandler(this.inputLine_TextChanged);
             // 
             // commandLine
             // 
             this.commandLine.Font = new System.Drawing.Font("Courier New", 10F);
-            this.commandLine.Location = new System.Drawing.Point(669, 99);
-            this.commandLine.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.commandLine.Location = new System.Drawing.Point(446, 64);
+            this.commandLine.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.commandLine.Multiline = true;
             this.commandLine.Name = "commandLine";
             this.commandLine.ReadOnly = true;
             this.commandLine.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.commandLine.Size = new System.Drawing.Size(1002, 1014);
+            this.commandLine.Size = new System.Drawing.Size(669, 660);
             this.commandLine.TabIndex = 1;
-            this.commandLine.TextChanged += new System.EventHandler(this.commandLine_TextChanged);
             // 
             // onlineSnakes
             // 
             this.onlineSnakes.Font = new System.Drawing.Font("Courier New", 10F);
-            this.onlineSnakes.Location = new System.Drawing.Point(45, 99);
-            this.onlineSnakes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.onlineSnakes.Location = new System.Drawing.Point(30, 64);
+            this.onlineSnakes.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.onlineSnakes.Multiline = true;
             this.onlineSnakes.Name = "onlineSnakes";
             this.onlineSnakes.ReadOnly = true;
-            this.onlineSnakes.Size = new System.Drawing.Size(556, 470);
+            this.onlineSnakes.Size = new System.Drawing.Size(372, 307);
             this.onlineSnakes.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(45, 35);
+            this.label1.Location = new System.Drawing.Point(30, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(179, 35);
+            this.label1.Size = new System.Drawing.Size(121, 23);
             this.label1.TabIndex = 3;
             this.label1.Text = "Online Snakes";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(45, 589);
+            this.label2.Location = new System.Drawing.Point(30, 383);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(146, 35);
+            this.label2.Size = new System.Drawing.Size(98, 23);
             this.label2.TabIndex = 4;
             this.label2.Text = "Banned Ips";
             // 
             // bannedIps
             // 
             this.bannedIps.Font = new System.Drawing.Font("Courier New", 10F);
-            this.bannedIps.Location = new System.Drawing.Point(45, 651);
-            this.bannedIps.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.bannedIps.Location = new System.Drawing.Point(30, 423);
+            this.bannedIps.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.bannedIps.Multiline = true;
             this.bannedIps.Name = "bannedIps";
             this.bannedIps.ReadOnly = true;
-            this.bannedIps.Size = new System.Drawing.Size(556, 504);
+            this.bannedIps.Size = new System.Drawing.Size(372, 329);
             this.bannedIps.TabIndex = 5;
-            this.bannedIps.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(664, 35);
+            this.label3.Location = new System.Drawing.Point(443, 23);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 35);
+            this.label3.Size = new System.Drawing.Size(74, 23);
             this.label3.TabIndex = 6;
             this.label3.Text = "Console";
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(2017, 1100);
-            this.stopButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.stopButton.Location = new System.Drawing.Point(1345, 715);
+            this.stopButton.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(134, 56);
+            this.stopButton.Size = new System.Drawing.Size(89, 36);
             this.stopButton.TabIndex = 7;
             this.stopButton.Text = "STOP";
             this.stopButton.UseVisualStyleBackColor = true;
@@ -208,10 +210,10 @@ namespace Util
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1739, 1100);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Location = new System.Drawing.Point(1159, 715);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(134, 56);
+            this.button1.Size = new System.Drawing.Size(89, 36);
             this.button1.TabIndex = 8;
             this.button1.Text = "START";
             this.button1.UseVisualStyleBackColor = true;
@@ -221,9 +223,10 @@ namespace Util
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Courier New", 10F);
-            this.label4.Location = new System.Drawing.Point(1784, 1014);
+            this.label4.Location = new System.Drawing.Point(1189, 659);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 22);
+            this.label4.Size = new System.Drawing.Size(64, 17);
             this.label4.TabIndex = 9;
             this.label4.Text = "Status:";
             // 
@@ -232,9 +235,10 @@ namespace Util
             this.onLabel.AutoSize = true;
             this.onLabel.BackColor = System.Drawing.Color.LimeGreen;
             this.onLabel.Font = new System.Drawing.Font("Courier New", 10F);
-            this.onLabel.Location = new System.Drawing.Point(2013, 1014);
+            this.onLabel.Location = new System.Drawing.Point(1342, 659);
+            this.onLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.onLabel.Name = "onLabel";
-            this.onLabel.Size = new System.Drawing.Size(34, 22);
+            this.onLabel.Size = new System.Drawing.Size(24, 17);
             this.onLabel.TabIndex = 10;
             this.onLabel.Text = "ON";
             // 
@@ -243,9 +247,10 @@ namespace Util
             this.offLabel.AutoSize = true;
             this.offLabel.BackColor = System.Drawing.Color.Red;
             this.offLabel.Font = new System.Drawing.Font("Courier New", 10F);
-            this.offLabel.Location = new System.Drawing.Point(2069, 1014);
+            this.offLabel.Location = new System.Drawing.Point(1379, 659);
+            this.offLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.offLabel.Name = "offLabel";
-            this.offLabel.Size = new System.Drawing.Size(46, 22);
+            this.offLabel.Size = new System.Drawing.Size(32, 17);
             this.offLabel.TabIndex = 11;
             this.offLabel.Text = "OFF";
             // 
@@ -253,20 +258,21 @@ namespace Util
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Courier New", 10F);
-            this.label5.Location = new System.Drawing.Point(1728, 945);
+            this.label5.Location = new System.Drawing.Point(1152, 614);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(154, 22);
+            this.label5.Size = new System.Drawing.Size(104, 17);
             this.label5.TabIndex = 12;
             this.label5.Text = "External IP:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // ipLabel
             // 
             this.ipLabel.AutoSize = true;
             this.ipLabel.Font = new System.Drawing.Font("Courier New", 10F);
-            this.ipLabel.Location = new System.Drawing.Point(2013, 945);
+            this.ipLabel.Location = new System.Drawing.Point(1342, 614);
+            this.ipLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ipLabel.Name = "ipLabel";
-            this.ipLabel.Size = new System.Drawing.Size(94, 22);
+            this.ipLabel.Size = new System.Drawing.Size(64, 17);
             this.ipLabel.TabIndex = 13;
             this.ipLabel.Text = "ipLabel";
             // 
@@ -274,9 +280,10 @@ namespace Util
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Courier New", 10F);
-            this.label6.Location = new System.Drawing.Point(1762, 886);
+            this.label6.Location = new System.Drawing.Point(1175, 576);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(118, 22);
+            this.label6.Size = new System.Drawing.Size(80, 17);
             this.label6.TabIndex = 14;
             this.label6.Text = "Local IP:";
             // 
@@ -284,9 +291,10 @@ namespace Util
             // 
             this.ipLocal.AutoSize = true;
             this.ipLocal.Font = new System.Drawing.Font("Courier New", 10F);
-            this.ipLocal.Location = new System.Drawing.Point(2013, 886);
+            this.ipLocal.Location = new System.Drawing.Point(1342, 576);
+            this.ipLocal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.ipLocal.Name = "ipLocal";
-            this.ipLocal.Size = new System.Drawing.Size(94, 22);
+            this.ipLocal.Size = new System.Drawing.Size(64, 17);
             this.ipLocal.TabIndex = 15;
             this.ipLocal.Text = "ipLocal";
             // 
@@ -294,9 +302,10 @@ namespace Util
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Courier New", 10F);
-            this.label7.Location = new System.Drawing.Point(1807, 831);
+            this.label7.Location = new System.Drawing.Point(1205, 540);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 22);
+            this.label7.Size = new System.Drawing.Size(48, 17);
             this.label7.TabIndex = 16;
             this.label7.Text = "Port:";
             // 
@@ -304,9 +313,10 @@ namespace Util
             // 
             this.portNumb.AutoSize = true;
             this.portNumb.Font = new System.Drawing.Font("Courier New", 10F);
-            this.portNumb.Location = new System.Drawing.Point(2013, 831);
+            this.portNumb.Location = new System.Drawing.Point(1342, 540);
+            this.portNumb.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.portNumb.Name = "portNumb";
-            this.portNumb.Size = new System.Drawing.Size(106, 22);
+            this.portNumb.Size = new System.Drawing.Size(72, 17);
             this.portNumb.TabIndex = 17;
             this.portNumb.Text = "portNumb";
             // 
@@ -314,9 +324,10 @@ namespace Util
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Courier New", 10F);
-            this.label8.Location = new System.Drawing.Point(1694, 778);
+            this.label8.Location = new System.Drawing.Point(1129, 506);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(190, 22);
+            this.label8.Size = new System.Drawing.Size(128, 17);
             this.label8.TabIndex = 18;
             this.label8.Text = "Players online:";
             // 
@@ -324,18 +335,18 @@ namespace Util
             // 
             this.onlinePlayers.AutoSize = true;
             this.onlinePlayers.Font = new System.Drawing.Font("Courier New", 10F);
-            this.onlinePlayers.Location = new System.Drawing.Point(2013, 778);
+            this.onlinePlayers.Location = new System.Drawing.Point(1342, 506);
+            this.onlinePlayers.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.onlinePlayers.Name = "onlinePlayers";
-            this.onlinePlayers.Size = new System.Drawing.Size(22, 22);
+            this.onlinePlayers.Size = new System.Drawing.Size(16, 17);
             this.onlinePlayers.TabIndex = 19;
             this.onlinePlayers.Text = "0";
-            this.onlinePlayers.Click += new System.EventHandler(this.onlinePlayers_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2164, 1319);
+            this.ClientSize = new System.Drawing.Size(856, 653);
             this.Controls.Add(this.onlinePlayers);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.portNumb);
@@ -356,12 +367,20 @@ namespace Util
             this.Controls.Add(this.onlineSnakes);
             this.Controls.Add(this.commandLine);
             this.Controls.Add(this.inputLine);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+
+        }
+
+        private void Form1_FormClosing(object sender, EventArgs e)
+        {
+            ServerUtil.stopServer(false);
+
 
         }
 

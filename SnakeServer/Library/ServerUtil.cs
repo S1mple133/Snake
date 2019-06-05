@@ -13,6 +13,7 @@ namespace Util
     {
         public static Socket server;
         public static string ip;
+        private static Thread listenSnakes;
 
         /// <summary>
         /// Listens for data from snakes
@@ -52,7 +53,8 @@ namespace Util
                 try
                 {
                     sock = server.Accept();
-                } catch(SocketException)
+                }
+                catch (SocketException)
                 {
                     break;
                 }
@@ -144,13 +146,16 @@ namespace Util
         internal static string startServer()
         {
             int[] positionList = new int[2];
+
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, Util._PORT);
             server = new Socket(IPAddress.Any.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
 
             try
             {
                 server.Bind(localEndPoint);
-            } catch(SocketException)
+            }
+            catch (SocketException)
             {
                 return "Server is already running!";
             }
@@ -163,9 +168,7 @@ namespace Util
             Util.Init();
 
             /// Start listening to snakes
-            Thread listenNewSnakes = new Thread(delegate () { ServerUtil.registerNewSnakes(server); });
-
-            listenNewSnakes.Start();
+            listenSnakes = new Thread(delegate () { ServerUtil.registerNewSnakes(server); });
 
             return "Server started!";
         }
@@ -174,11 +177,17 @@ namespace Util
         /// Stops the server
         /// </summary>
         /// <returns></returns>
-        internal static string stopServer()
+        internal static string stopServer(bool resetCmd)
         {
             server.Close();
             Snake.getSnakes().Clear();
-            Util.getForm().resetCmd();
+
+            // Reset cmd
+            if (resetCmd)
+                Util.getForm().resetCmd();
+
+            // Abort listening for snakes
+            listenSnakes.Abort();
 
             return "Server stopped!";
         }

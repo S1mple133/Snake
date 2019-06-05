@@ -133,7 +133,6 @@ namespace Util
             {
                 Util.log("Became data from " + (client.RemoteEndPoint as IPEndPoint).Address);
                 Util.logData(buffer);
-                Console.WriteLine();
             }
 
 
@@ -141,28 +140,35 @@ namespace Util
             {
                 allData = getData();
 
-                try
-                {
-                    // Send data to other snakes
-                    foreach (Snake snake in snakeList)
-                    {
-                        snake.getClient().Send(allData);
+                // Saved snakeList into new Array, so it wouldn't throw
+                // Error when a snake connects (is being added to the List)
+                // while the foreach loop is running
+                int snakes = snakeList.Count;
+                Snake[] snakeArray = snakeList.ToArray();
 
-                        if (Util._DEBUG)
-                        {
-                            Util.log("Sent data to " + (snake.getClient().RemoteEndPoint as IPEndPoint).Address);
-                            Util.logData(allData);
-                        }
+                // Send data to other snakes
+                foreach (Snake snake in snakeArray)
+                {
+                    snake.getClient().Send(allData);
+
+                    if (Util._DEBUG)
+                    {
+                        Util.log("Sent data to " + (snake.getClient().RemoteEndPoint as IPEndPoint).Address);
+                        Util.logData(allData);
                     }
                 }
-                catch (Exception)
-                {
-                    accumulatedData = 0;
-                    return;
-                }
+                
 
                 accumulatedData = 0;
             }
+        }
+
+        /// <summary>
+        /// Stop listening for data from this snake
+        /// </summary>
+        private void stopListeningForData()
+        {
+            listenForData.Abort();
         }
 
         /// <summary>
@@ -196,6 +202,8 @@ namespace Util
             {
                 return;
             }
+
+            stopListeningForData();
         }
 
         /// <summary>
@@ -203,7 +211,7 @@ namespace Util
         /// </summary>
         public void kill()
         {
-            this.remove();
+            remove();
             getClient().Disconnect(true);
         }
 

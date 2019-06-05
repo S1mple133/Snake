@@ -43,21 +43,6 @@ namespace Util
             portNumb.Text = Convert.ToString(Util._PORT);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void commandLine_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void inputLine_TextChanged(object sender, EventArgs e)
         {
             if (inputLine.Text.Substring(Math.Max(0,inputLine.TextLength - 2), Math.Min(inputLine.TextLength, 2)).Equals("\r\n"))
@@ -68,7 +53,7 @@ namespace Util
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Util.log(ServerUtil.stopServer());
+            Util.log(ServerUtil.stopServer(false));
             this.onLabel.Visible = false;
             this.offLabel.Visible = true;
         }
@@ -81,16 +66,6 @@ namespace Util
             this.offLabel.Visible = false;
 
             updateIP();
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void onlinePlayers_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

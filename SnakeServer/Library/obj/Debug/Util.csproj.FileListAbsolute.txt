@@ -14,3 +14,11 @@ C:\Users\Niklas\Desktop\SnakeServer\Library\obj\Debug\Util.csproj.GenerateResour
 C:\Users\Niklas\Desktop\SnakeServer\Library\obj\Debug\Util.csproj.CoreCompileInputs.cache
 C:\Users\Niklas\Desktop\SnakeServer\Library\obj\Debug\Library.dll
 C:\Users\Niklas\Desktop\SnakeServer\Library\obj\Debug\Library.pdb
+U:\PROG\Snake\Snake\SnakeServer\Library\bin\Debug\Library.dll
+U:\PROG\Snake\Snake\SnakeServer\Library\bin\Debug\Library.pdb
+U:\PROG\Snake\Snake\SnakeServer\Library\obj\Debug\Util.csprojAssemblyReference.cache
+U:\PROG\Snake\Snake\SnakeServer\Library\obj\Debug\Util.Form1.resources
+U:\PROG\Snake\Snake\SnakeServer\Library\obj\Debug\Util.csproj.GenerateResource.cache
+U:\PROG\Snake\Snake\SnakeServer\Library\obj\Debug\Util.csproj.CoreCompileInputs.cache
+U:\PROG\Snake\Snake\SnakeServer\Library\obj\Debug\Library.dll
+U:\PROG\Snake\Snake\SnakeServer\Library\obj\Debug\Library.pdb

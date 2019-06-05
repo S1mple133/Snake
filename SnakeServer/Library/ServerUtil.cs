@@ -169,7 +169,8 @@ namespace Util
 
             /// Start listening to snakes
             listenSnakes = new Thread(delegate () { ServerUtil.registerNewSnakes(server); });
-
+            listenSnakes.IsBackground = true;
+            listenSnakes.Start();
             return "Server started!";
         }
 

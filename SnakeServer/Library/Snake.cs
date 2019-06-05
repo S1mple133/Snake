@@ -39,14 +39,15 @@ namespace Util
             this.id = Util.getId();
 
             // Send game settings
-            client.Send(new byte[] { (byte)Util._GRIDSIZE, Util._SIZE, (byte)id, Util._SNAKE_LENGTH, (byte)position[X], (byte)position[Y] });
+            client.Send(new byte[] { (byte)Util._MAX_PLAYERS, Util._SIZE, (byte)id, Util._SNAKE_LENGTH, (byte)position[X], (byte)position[Y] });
+
+            snakeList.Add(this);
 
             // Start listening for data
             this.listenForData = new Thread(delegate () { ServerUtil.listenForData(this); });
             listenForData.Start();
 
             Util.addNewSnake(ip);
-            snakeList.Add(this);
         }
 
         public int getId()
@@ -274,7 +275,7 @@ namespace Util
         /// <returns></returns>
         private byte[] getData()
         {
-            byte[] data = new byte[Util._MAX_PLAYERS * 3 + 1];
+            byte[] data = new byte[Util._MAX_PLAYERS * 4 + 1];
             data[0] = (byte)snakeList.Count;
             Snake snake;
             int cnt = 1;

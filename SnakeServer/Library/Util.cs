@@ -21,7 +21,6 @@ namespace Util
         private static List<string> bannedList = new List<string>();
         private static bool[] idList = new bool[_MAX_PLAYERS];
         private static Form1 form = new Form1();
-        internal static byte _GRIDSIZE= 25;
 
         /// <summary>
         /// Generate a random start position
@@ -88,6 +87,7 @@ namespace Util
             {
                 if(!idList[i])
                 {
+                    idList[i] = true;
                     return i;
                 }
             }

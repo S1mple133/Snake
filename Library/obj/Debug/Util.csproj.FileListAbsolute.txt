@@ -1,8 +1,0 @@
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\obj\Debug\Util.csprojAssemblyReference.cache
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\obj\Debug\Util.Form1.resources
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\obj\Debug\Util.csproj.GenerateResource.cache
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\obj\Debug\Util.csproj.CoreCompileInputs.cache
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\bin\Debug\Library.dll
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\bin\Debug\Library.pdb
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\obj\Debug\Library.dll
-C:\Users\pavel\source\repos\WindowsFormsApp1\Library\obj\Debug\Library.pdb

@@ -379,7 +379,7 @@ namespace Util
 
         private void Form1_FormClosing(object sender, EventArgs e)
         {
-            ServerUtil.stopServer(false);
+            ServerUtil.StopServer(false);
 
 
         }

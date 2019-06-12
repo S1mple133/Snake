@@ -30,30 +30,30 @@ namespace Util
 
         public Snake(Socket client)
         {
-            this.position = Util.generateStartPositions();
-            this.length = Util._SIZE;
+            this.position = Util.GenerateStartPositions();
+            this.length = Util.SIZE;
             this.positionList = new List<int[]>();
             this.client = client;
             this.buffer = new byte[3];
             this.ip = (client.LocalEndPoint as IPEndPoint).Address.ToString();
-            this.id = Util.getId();
+            this.id = Util.GetId();
 
             // Send game settings
-            client.Send(new byte[] { (byte)Util._MAX_PLAYERS, Util._SIZE, (byte)id, Util._SNAKE_LENGTH, (byte)position[X], (byte)position[Y] });
+            client.Send(new byte[] { (byte)Util.MAX_PLAYERS, (byte)Util.SIZE, (byte)id, (byte)Util.SNAKE_LENGTH, (byte)position[X], (byte)position[Y] });
 
             snakeList.Add(this);
 
             // Start listening for data
-            this.listenForData = new Thread(delegate () { ServerUtil.listenForData(this); });
+            this.listenForData = new Thread(delegate () { ServerUtil.ListenForData(this); });
             listenForData.Start();
 
-            Util.addNewSnake(ip);
+            Util.AddNewSnake(ip);
         }
 
         public void Disconnect()
         {
-            getClient().Shutdown(SocketShutdown.Both);
-            getClient().Disconnect(true);
+            GetClient().Shutdown(SocketShutdown.Both);
+            GetClient().Disconnect(true);
         }
 
         public static void DisconnectFromAllSnakes()
@@ -62,16 +62,13 @@ namespace Util
                 snake.Disconnect();
         }
 
-        public int getId()
-        {
-            return id;
-        }
+        public int Id => id;
 
         /// <summary>
         /// Returns the data array
         /// </summary>
         /// <returns></returns>
-        public byte[] getBuffer()
+        public byte[] GetBuffer()
         {
             return buffer;
         }
@@ -81,11 +78,11 @@ namespace Util
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
-        public static Snake getSnake(string ip)
+        public static Snake GetSnake(string ip)
         {
             foreach (Snake snake in snakeList)
             {
-                if (snake.getIp().Equals(ip))
+                if (snake.GetIp().Equals(ip))
                 {
                     return snake;
                 }
@@ -98,7 +95,7 @@ namespace Util
         /// Returns the ip of the client
         /// </summary>
         /// <returns></returns>
-        public string getIp()
+        public string GetIp()
         {
             return ip;
         }
@@ -138,20 +135,20 @@ namespace Util
 
             this.position = new int[] { x, y };
 
-            checkSnakeCollision();
+            CheckSnakeCollision();
             accumulatedData++;
 
             // Output debug
-            if (Util._DEBUG)
+            if (Util.DEBUG)
             {
                 Util.log("Became data from " + (client.RemoteEndPoint as IPEndPoint).Address);
-                Util.logData(buffer);
+                Util.LogData(buffer);
             }
 
 
             if (accumulatedData == snakeList.Count)
             {
-                allData = getData();
+                allData = GetData();
 
                 // Saved snakeList into new Array, so it wouldn't throw
                 // Error when a snake connects (is being added to the List)
@@ -162,12 +159,12 @@ namespace Util
                 // Send data to other snakes
                 foreach (Snake snake in snakeArray)
                 {
-                    snake.getClient().Send(allData);
+                    snake.GetClient().Send(allData);
 
-                    if (Util._DEBUG)
+                    if (Util.DEBUG)
                     {
-                        Util.log("Sent data to " + (snake.getClient().RemoteEndPoint as IPEndPoint).Address);
-                        Util.logData(allData);
+                        Util.log("Sent data to " + (snake.GetClient().RemoteEndPoint as IPEndPoint).Address);
+                        Util.LogData(allData);
                     }
                 }
 
@@ -179,7 +176,7 @@ namespace Util
         /// <summary>
         /// Stop listening for data from this snake
         /// </summary>
-        private void stopListeningForData()
+        private void StopListeningForData()
         {
             listenForData.Abort();
         }
@@ -187,13 +184,13 @@ namespace Util
         /// <summary>
         /// Removes a snake
         /// </summary>
-        public void remove()
+        public void Remove(KickCode kickCode)
         {
             Util.log("Snake disconnected from " + ip);
             this.length = 0;
             snakeList.Remove(this);
 
-            Util.getForm().onlinePlayers.Invoke((MethodInvoker)delegate { Util.getForm().onlinePlayers.Text = Convert.ToString(Convert.ToInt32(Util.getForm().onlinePlayers.Text) - 1); });
+            Util.Form.onlinePlayers.Invoke((MethodInvoker)delegate { Util.Form.onlinePlayers.Text = Convert.ToString(Convert.ToInt32(Util.Form.onlinePlayers.Text) - 1); });
 
             // Remove snake from online list
             string ipAddress = "";
@@ -203,63 +200,67 @@ namespace Util
                 ipAddress = ipAddress + ip + "\r\n";
             }
 
-            Util.getForm().setOnlineSnakes(ipAddress);
+            Util.Form.setOnlineSnakes(ipAddress);
 
-            Util.removeId(id);
+            Util.RemoveId(id);
+
+            GetClient().Send(new byte[] { (byte)0, (byte)kickCode });
+
+            Thread.Sleep(1000);
 
             try
             {
-                getClient().Shutdown(SocketShutdown.Both);
-                getClient().Disconnect(true);
+                GetClient().Shutdown(SocketShutdown.Both);
+                GetClient().Disconnect(true);
             }
             catch (SocketException)
             {
                 return;
             }
 
-            stopListeningForData();
+            StopListeningForData();
         }
 
         /// <summary>
         /// Kills a snake
         /// </summary>
-        public void kill()
+        public void Kill()
         {
-            remove();
-            getClient().Disconnect(true);
+            Remove(KickCode.DEAD);
+            GetClient().Disconnect(true);
         }
 
         /// <summary>
         /// Ban IP
         /// </summary>
         /// <param name="ip"></param>
-        public void ban()
+        public void Ban()
         {
-            Util.getBannedIpList().Add(ip);
+            Util.BannedIpList.Add(ip);
             File.AppendText(ip + ";");
-            Util.getForm().addBannedSnake(ip + "\r\n");
-            kick();
+            Util.Form.addBannedSnake(ip + "\r\n");
+            Kick(KickCode.BAN);
         }
 
         /// <summary>
         /// Kick a snake
         /// </summary>
-        internal void kick()
+        internal void Kick(KickCode reason)
         {
-            remove();
-            getClient().Disconnect(true);
+            Remove(reason);
+            GetClient().Disconnect(true);
         }
 
         /// <summary>
         /// Checks if the snake collided with an other snake
         /// </summary>
-        private void checkSnakeCollision()
+        private void CheckSnakeCollision()
         {
             foreach (Snake snake in snakeList)
             {
-                if (snake.getPositionList().Contains(position))
+                if (snake.PositionList.Contains(position))
                 {
-                    this.kill();
+                    this.Kill();
                 }
             }
         }
@@ -268,27 +269,21 @@ namespace Util
         /// Returns the position of the snake
         /// </summary>
         /// <returns></returns>
-        public int[] getPosition()
-        {
-            return position;
-        }
+        public int[] Position => position;
 
         /// <summary>
         /// Returns the length of the snake
         /// </summary>
         /// <returns></returns>
-        public int getLength()
-        {
-            return length;
-        }
+        public int Length => length;
 
         /// <summary>
         /// Gets the Position as String
         /// </summary>
         /// <returns></returns>
-        private byte[] getData()
+        private byte[] GetData()
         {
-            byte[] data = new byte[Util._MAX_PLAYERS * 4 + 1];
+            byte[] data = new byte[Util.MAX_PLAYERS * 4 + 1];
             data[0] = (byte)snakeList.Count;
             Snake snake;
             int cnt = 1;
@@ -297,10 +292,10 @@ namespace Util
             {
                 snake = snakeList.ToArray()[i - 1];
 
-                data[cnt] = (byte)snake.getId();
-                data[cnt + 1] = (byte)snake.getPosition()[X];
-                data[cnt + 2] = (byte)snake.getPosition()[Y];
-                data[cnt + 3] = (byte)snake.getLength();
+                data[cnt] = (byte)snake.Id;
+                data[cnt + 1] = (byte)snake.Position[X];
+                data[cnt + 2] = (byte)snake.Position[Y];
+                data[cnt + 3] = (byte)snake.Length;
 
                 cnt += 4;
             }
@@ -312,7 +307,7 @@ namespace Util
         /// Returns the Socket of the User
         /// </summary>
         /// <returns></returns>
-        public Socket getClient()
+        public Socket GetClient()
         {
             return client;
         }
@@ -322,11 +317,11 @@ namespace Util
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static Snake getSnake(Socket client)
+        public static Snake GetSnake(Socket client)
         {
             foreach (Snake snake in snakeList)
             {
-                if (snake.getClient() == client)
+                if (snake.GetClient() == client)
                 {
                     return snake;
                 }
@@ -338,18 +333,12 @@ namespace Util
         /// Returns the position list
         /// </summary>
         /// <returns></returns>
-        public List<int[]> getPositionList()
-        {
-            return positionList;
-        }
+        public List<int[]> PositionList => positionList;
 
         /// <summary>
         /// Returns the online snakes
         /// </summary>
         /// <returns></returns>
-        public static List<Snake> getSnakes()
-        {
-            return snakeList;
-        }
+        public static List<Snake> GetSnakes() => snakeList;
     }
 }

@@ -48,3 +48,13 @@ C:\Users\Niklas\Documents\GitHub\S1mple\newSnakeClient\SnakeClient\obj\Debug\Sna
 C:\Users\Niklas\Documents\GitHub\S1mple\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csproj.CoreCompileInputs.cache
 C:\Users\Niklas\Documents\GitHub\S1mple\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.exe
 C:\Users\Niklas\Documents\GitHub\S1mple\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.pdb
+D:\Snake\Snake\newSnakeClient\SnakeClient\bin\Debug\SnakeClient.exe.config
+D:\Snake\Snake\newSnakeClient\SnakeClient\bin\Debug\SnakeClient.exe
+D:\Snake\Snake\newSnakeClient\SnakeClient\bin\Debug\SnakeClient.pdb
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csprojAssemblyReference.cache
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.Form1.resources
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.Properties.Resources.resources
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csproj.GenerateResource.cache
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csproj.CoreCompileInputs.cache
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.exe
+D:\Snake\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.pdb

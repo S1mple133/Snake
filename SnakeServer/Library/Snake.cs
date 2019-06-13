@@ -60,6 +60,8 @@ namespace Util
         {
             foreach (Snake snake in snakeList)
                 snake.Disconnect();
+
+            snakeList.Clear();
         }
 
         public int Id => id;
@@ -186,8 +188,9 @@ namespace Util
         /// </summary>
         public void Remove(KickCode kickCode)
         {
-            Util.log("Snake disconnected from " + ip);
-            this.length = 0;
+            StopListeningForData();
+
+            length = 0;
             snakeList.Remove(this);
 
             Util.Form.onlinePlayers.Invoke((MethodInvoker)delegate { Util.Form.onlinePlayers.Text = Convert.ToString(Convert.ToInt32(Util.Form.onlinePlayers.Text) - 1); });
@@ -204,21 +207,27 @@ namespace Util
 
             Util.RemoveId(id);
 
-            GetClient().Send(new byte[] { (byte)0, (byte)kickCode });
-
-            Thread.Sleep(1000);
-
+            // Send disconnect cause
             try
             {
-                GetClient().Shutdown(SocketShutdown.Both);
-                GetClient().Disconnect(true);
+                GetClient().Send(new byte[] { 0, (byte)kickCode });
+                GetClient().Receive(new byte[1]);
             }
             catch (SocketException)
             {
                 return;
             }
 
-            StopListeningForData();
+            try
+            {
+                GetClient().Shutdown(SocketShutdown.Both);
+                GetClient().Disconnect(true);
+            } catch(SocketException)
+            {
+
+            }
+
+            Util.log("Snake disconnected from " + ip);
         }
 
         /// <summary>

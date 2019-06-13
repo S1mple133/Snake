@@ -35,10 +35,12 @@ namespace SnakeClient
             for (int i = 1; i < buffer[0] * 4 + 1; i += 4)
             {
                 Snake actSnake = Snake.GetSnake(buffer[i]);
+
                 if (actSnake == null)
                     Snake.AddSnake(buffer[i], buffer[i + 1], buffer[i + 2], buffer[i + 3], 255, random.Next(77, 177), random.Next(77, 177), random.Next(77, 177));
                 else
                     actSnake.Update(buffer[i + 1], buffer[i + 2], buffer[i + 3]);
+
                 usedIDs[idx] = buffer[i];
                 idx++;
             }

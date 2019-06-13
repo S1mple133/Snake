@@ -67,11 +67,11 @@ namespace Util
                     sock.Disconnect(true);
                     continue;
                 }
-
-                Thread.Sleep(200);
                 sock.SendTimeout = Util.TIMEOUT_TIME;
 
                 new Snake(sock);
+
+                Thread.Sleep(300);
 
                 // Don't accept new connections if max players online
                 while (Snake.GetSnakes().Count >= Util.MAX_PLAYERS)
@@ -149,12 +149,8 @@ namespace Util
         {
             int[] positionList = new int[2];
 
-            if (FirstStart)
-            {
-                LocalEndPoint = new IPEndPoint(IPAddress.Any, Util.PORT);
-                Server = new Socket(IPAddress.Any.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            }
-
+            LocalEndPoint = new IPEndPoint(IPAddress.Any, Util.PORT);
+            Server = new Socket(IPAddress.Any.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
@@ -187,12 +183,9 @@ namespace Util
         /// <returns></returns>
         internal static string StopServer(bool resetCmd)
         {
-            Server.Shutdown(SocketShutdown.Both);
             Server.Close();
 
             Snake.DisconnectFromAllSnakes();
-
-            Snake.GetSnakes().Clear();
 
             // Reset cmd
             if (resetCmd)
@@ -200,6 +193,8 @@ namespace Util
 
             // Abort listening for snakes
             ListenSnakes.Abort();
+
+            Server = null;
 
             return "Server stopped!";
         }

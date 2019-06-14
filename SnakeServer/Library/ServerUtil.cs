@@ -183,7 +183,13 @@ namespace Util
         /// <returns></returns>
         internal static string StopServer(bool resetCmd)
         {
-            Server.Close();
+            try
+            {
+                Server.Close();
+            } catch(Exception)
+            {
+                return "Server can't be stopped!";
+            }
 
             Snake.DisconnectFromAllSnakes();
 

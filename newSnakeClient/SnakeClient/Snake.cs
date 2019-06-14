@@ -42,10 +42,11 @@ namespace SnakeClient
         public static void RemoveOfflineSnakes(int[] usedIDs)
         {
             int[] snakeListIDs = GetAllIDs();
-            bool shouldBeRemoved = true;
+            bool shouldBeRemoved;
 
             for (int i = 0; i < snakeListIDs.Length; i++)
             {
+                shouldBeRemoved = true;
                 for (int j = 0; j < usedIDs.Length; j++)
                 {
                     if (snakeListIDs[i] == usedIDs[j])

@@ -4,13 +4,20 @@
     {
         public static int MAX_PLAYERS;
         public static int GRID_SIZE;
-        public static int TICK_INTERVAL;
-        public static string IP_ADDRESS;
-        public static int PORT;
         public static int ONLINE_PLAYERS;
+        public static int TICK_INTERVAL = 250;
+        public static string IP_ADDRESS;
+        public static int PORT = 4396;
+        public const string SETTINGS_FILE_NAME = "config.conf";
 
         public static void LoadConfig(string path)
         {
+            if (!System.IO.File.Exists(path))
+                System.Windows.Forms.Application.Run(new ReadSettings());
+
+            if (!System.IO.File.Exists(path))
+                System.Environment.Exit(0);
+
             string[] lines = System.IO.File.ReadAllLines(path, System.Text.Encoding.UTF8);
 
             TICK_INTERVAL = System.Convert.ToInt32(RemoveSpaces(lines[0].Substring(lines[0].IndexOf(':') + 1)));

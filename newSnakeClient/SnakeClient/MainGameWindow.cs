@@ -5,17 +5,17 @@ using System.Windows.Forms;
 namespace SnakeClient
 {
 
-    public partial class Form1 : Form
+    public partial class MainGameWindow : Form
     {
         bool isFullscreen = false;
 
-        public Form1()
+        public MainGameWindow()
         {
             InitializeComponent();
-            
-            SetWindowSize();
 
-            Util.LoadConfig("configFile.conf");
+            Util.LoadConfig(Util.SETTINGS_FILE_NAME);
+
+            SetWindowSize();
 
             GameLoop.Interval = Util.TICK_INTERVAL;
             GameLoop.Start();

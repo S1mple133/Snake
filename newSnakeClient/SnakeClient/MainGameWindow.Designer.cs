@@ -1,6 +1,6 @@
 ﻿namespace SnakeClient
 {
-    partial class Form1
+    partial class MainGameWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -64,7 +64,7 @@
             this.onlinePlayersLabel.TabIndex = 1;
             this.onlinePlayersLabel.Text = "Online Players: ";
             // 
-            // Form1
+            // MainGameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -72,9 +72,9 @@
             this.ClientSize = new System.Drawing.Size(1068, 588);
             this.Controls.Add(this.onlinePlayersLabel);
             this.Controls.Add(this.Canvas);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(1);
-            this.Name = "Form1";
+            this.Name = "MainGameWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);

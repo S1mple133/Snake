@@ -25,7 +25,7 @@ namespace Util
         {
             byte[] buffer = snake.GetBuffer();
             snake.GetClient().ReceiveTimeout = Util.TIMEOUT_TIME;
-
+            bool isConnected = true;
             do
             {
                 try
@@ -35,11 +35,11 @@ namespace Util
                 }
                 catch (SocketException)
                 {
-                    break;
+                    isConnected = false;
                 }
-            } while (true);
+            } while (isConnected);
 
-            snake.Remove(KickCode.LEAVE);
+            snake.Remove(KickCode.NONE);
         }
 
         /// <summary>

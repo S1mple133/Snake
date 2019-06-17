@@ -28,7 +28,15 @@ namespace Util
 
         private void updateIP()
         {
-            ipLabel.Text = new WebClient().DownloadString("http://icanhazip.com");
+            try
+            {
+                ipLabel.Text = new WebClient().DownloadString("http://icanhazip.com");
+            }
+            catch (Exception)
+            {
+                ipLabel.Text = "Not online";
+            }
+
             ipLocal.Text = ServerUtil.Ip;
             portNumb.Text = Convert.ToString(Util.PORT);
         }

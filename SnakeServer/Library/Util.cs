@@ -171,9 +171,9 @@ namespace Util
 
     public enum KickCode
     {
-        LEAVE,
         KICK,
         BAN,
-        DEAD
+        DEAD,
+        NONE
     }
 }

@@ -148,7 +148,7 @@ namespace Util
             }
 
 
-            if (accumulatedData == snakeList.Count)
+            if (accumulatedData >= snakeList.Count)
             {
                 allData = GetData();
 
@@ -180,7 +180,7 @@ namespace Util
         /// </summary>
         private void StopListeningForData()
         {
-            listenForData.Abort();
+            listenForData = null;
         }
 
         /// <summary>
@@ -208,14 +208,16 @@ namespace Util
             Util.RemoveId(id);
 
             // Send disconnect cause
-            try
+            if (kickCode != KickCode.NONE)
             {
-                GetClient().Send(new byte[] { 0, (byte)kickCode });
-                GetClient().Receive(new byte[1]);
-            }
-            catch (SocketException)
-            {
-                return;
+                try
+                {
+                    GetClient().Send(new byte[] { 0, (byte)kickCode });
+                }
+                catch (SocketException)
+                {
+                    return;
+                }
             }
 
             try
@@ -246,7 +248,7 @@ namespace Util
         public void Ban()
         {
             Util.BannedIpList.Add(ip);
-            File.AppendText(ip + ";");
+            File.AppendAllLines(Util.BanFileName, new string[] { ip + ";" });
             Util.Form.addBannedSnake(ip + "\r\n");
             Kick(KickCode.BAN);
         }
@@ -257,7 +259,6 @@ namespace Util
         internal void Kick(KickCode reason)
         {
             Remove(reason);
-            GetClient().Disconnect(true);
         }
 
         /// <summary>

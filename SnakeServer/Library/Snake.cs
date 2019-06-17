@@ -50,6 +50,11 @@ namespace Util
             Util.AddNewSnake(ip);
         }
 
+        internal void Message(byte[] buffer)
+        {
+
+        }
+
         public void Disconnect()
         {
             GetClient().Shutdown(SocketShutdown.Both);

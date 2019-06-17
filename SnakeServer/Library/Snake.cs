@@ -58,7 +58,7 @@ namespace Util
 
         public static void DisconnectFromAllSnakes()
         {
-            foreach (Snake snake in snakeList)
+            foreach (Snake snake in GetSnakes())
                 snake.Disconnect();
 
             snakeList.Clear();
@@ -349,6 +349,6 @@ namespace Util
         /// Returns the online snakes
         /// </summary>
         /// <returns></returns>
-        public static List<Snake> GetSnakes() => snakeList;
+        public static Snake[] GetSnakes() => snakeList.ToArray();
     }
 }

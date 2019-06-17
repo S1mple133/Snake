@@ -74,7 +74,7 @@ namespace Util
                 Thread.Sleep(300);
 
                 // Don't accept new connections if max players online
-                while (Snake.GetSnakes().Count >= Util.MAX_PLAYERS)
+                while (Snake.GetSnakes().Length >= Util.MAX_PLAYERS)
                 {
                     Thread.Sleep(500);
                 }

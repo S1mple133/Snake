@@ -161,7 +161,7 @@ namespace Util
                 return "Server is already running!";
             }
 
-            Ip = Dns.GetHostEntry("").AddressList[1].ToString();
+            Ip = Dns.GetHostEntry("").AddressList[Dns.GetHostEntry("").AddressList.Length-1].ToString();
 
             Server.Listen(Util.MAX_PLAYERS);
 
@@ -183,7 +183,14 @@ namespace Util
         /// <returns></returns>
         internal static string StopServer(bool resetCmd)
         {
-            Server.Close();
+            try
+            {
+                Server.Close();
+            }
+            catch (Exception)
+            {
+                return "Server is already stopped!";
+            }
 
             Snake.DisconnectFromAllSnakes();
 

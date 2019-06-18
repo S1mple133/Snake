@@ -36,7 +36,7 @@ namespace Util
             this.id = Util.GetId();
 
             // Send game settings
-            client.Send(new byte[] { (byte)Util.MAX_PLAYERS, (byte)Util.SIZE, (byte)id, (byte)Util.SNAKE_LENGTH, (byte)position[X], (byte)position[Y] });
+            client.Send(new byte[] { (byte)Util.MAX_PLAYERS, (byte)Util.SIZE, (byte)Util.ZOOM, (byte)id, (byte)Util.SNAKE_LENGTH, (byte)position[X], (byte)position[Y] });
 
             snakeList.Add(this);
 

@@ -4,11 +4,12 @@
     {
         public static int MAX_PLAYERS;
         public static int GRID_SIZE;
-        public const int ZOOM = 25;
+        public static int ZOOM;
         public static int ONLINE_PLAYERS;
-        public static int TICK_INTERVAL = 250;
+        public static int TICK_INTERVAL;
         public static string IP_ADDRESS;
-        public static int PORT = 4396;
+        public static int PORT;
+
         public const string SETTINGS_FILE_NAME = "config.conf";
 
         public static void LoadConfig(string path)

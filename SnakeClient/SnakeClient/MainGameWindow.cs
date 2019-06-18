@@ -80,10 +80,9 @@ namespace SnakeClient
             float offset = 2;
 
             Graphics frame = e.Graphics;
-            
+
             Game.DrawSnakes(e, ref frame, scale, offset);
             Game.DrawWindowBoarder(e, ref frame, Canvas.Width, Canvas.Height, offset);
-            Game.DrawGameBoarder(e, ref frame, scale, offset);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -132,11 +131,15 @@ namespace SnakeClient
             //Draw snakes
             foreach (Snake s in snakes)
             {
+                SolidBrush snakeColor = new SolidBrush(Color.White);
+                if (s.ID == Game.Player.ID)
+                    snakeColor = new SolidBrush(Color.Red);
+
                 Position[] tail = s.GetTail();
                 for (int i = 0; i < tail.Length; i++)
-                    frame.FillRectangle(new SolidBrush(Color.White), tail[i].X * scale + offset, tail[i].Y * scale + offset, scale, scale);
+                    frame.FillRectangle(snakeColor, tail[i].X * scale + offset, tail[i].Y * scale + offset, scale, scale);
 
-                frame.FillRectangle(new SolidBrush(Color.White), s.Head.X * scale + offset, s.Head.Y * scale + offset, scale, scale);
+                frame.FillRectangle(snakeColor, s.Head.X * scale + offset, s.Head.Y * scale + offset, scale, scale);
             }
         }
     }

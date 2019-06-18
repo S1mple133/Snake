@@ -17,12 +17,14 @@ namespace SnakeClient
             random = new Random();
 
             Client = new Client(Util.IP_ADDRESS, Util.PORT);
-            byte[] buffer = Client.Receive(6);
+            byte[] buffer = Client.Receive(7);
 
             Util.MAX_PLAYERS = buffer[0];
             Util.GRID_SIZE = buffer[1];
+            Util.ZOOM = buffer[2];
 
-            Player = new Player(buffer[2], buffer[3], buffer[4], buffer[5]);
+            Player = new Player(buffer[3], buffer[4], buffer[5], buffer[6]);
+            //Player = new Player(buffer[3], buffer[4], 5, 250);
 
             Client.Send(Player);
         }
@@ -61,25 +63,18 @@ namespace SnakeClient
             {
                 Position[] tail = s.GetTail();
                 for (int i = 0; i < tail.Length; i++)
-                    if (s.Head.IsInBounds(Player.Position.X - Util.ZOOM / 2, Player.Position.Y - Util.ZOOM / 2, Player.Position.X + Util.ZOOM / 2, Player.Position.Y + Util.ZOOM / 2))
+                    if (s.Head.IsInBounds(Player.Position.X - (float)Util.ZOOM / 2, Player.Position.Y - (float)Util.ZOOM / 2, Player.Position.X + (float)Util.ZOOM / 2, Player.Position.Y + (float)Util.ZOOM / 2))
                         frame.FillRectangle(new SolidBrush(s.TailColor),
-                            (tail[i].X - (Player.Position.X - Util.ZOOM / 2)) * scale + offset,
-                            (tail[i].Y - (Player.Position.Y - Util.ZOOM / 2)) * scale + offset,
+                            (tail[i].X - (Player.Position.X - (float)Util.ZOOM / 2)) * scale + offset - (float)scale / 2,
+                            (tail[i].Y - (Player.Position.Y - (float)Util.ZOOM / 2)) * scale + offset - (float)scale / 2,
                             scale, scale);
-                if (s.Head.IsInBounds(Player.Position.X - Util.ZOOM / 2, Player.Position.Y - Util.ZOOM / 2, Player.Position.X + Util.ZOOM / 2, Player.Position.Y + Util.ZOOM / 2))
-                {
+
+                if (s.Head.IsInBounds(Player.Position.X - (float)Util.ZOOM / 2, Player.Position.Y - (float)Util.ZOOM / 2, Player.Position.X + (float)Util.ZOOM / 2, Player.Position.Y + (float)Util.ZOOM / 2))
                     frame.FillRectangle(new SolidBrush(s.HeadColor),
-                        (s.Head.X - (Player.Position.X - Util.ZOOM / 2)) * scale + offset,
-                        (s.Head.Y - (Player.Position.Y - Util.ZOOM / 2)) * scale + offset,
+                        (s.Head.X - (Player.Position.X - (float)Util.ZOOM / 2)) * scale + offset - (float)scale / 2,
+                        (s.Head.Y - (Player.Position.Y - (float)Util.ZOOM / 2)) * scale + offset - (float)scale / 2,
                         scale, scale);
-                }
-                else Console.WriteLine("OUTSIDE: " + new Random().Next());
             }
-        }
-
-        public static void DrawGameBoarder(PaintEventArgs e, ref Graphics frame, int scale, float offset)
-        {
-
         }
 
         public static void DrawWindowBoarder(PaintEventArgs e, ref Graphics frame, int canvasWidth, int canvasHeight, float offset)

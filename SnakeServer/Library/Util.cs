@@ -11,7 +11,8 @@ namespace Util
 {
     public class Util
     {
-        private const int sIZE = 255; // Size of board
+        private const int sIZE = 101; // Size of board
+        private const int zOOM = 25;
         private const string banFileName = "banned.csv"; // Name of ban file
         private const int sNAKE_LENGTH = 40; // Default snake length
         private const int mAX_PLAYERS = 10; // Max players
@@ -32,6 +33,12 @@ namespace Util
         /// Time to listen for every client to send data
         /// </summary>
         public static int TIMEOUT_TIME => tIMEOUT_TIME;
+
+
+        /// <summary>
+        /// The zoom on the player
+        /// </summary>
+        public static int ZOOM => zOOM;
 
         /// <summary>
         /// Port to listen for

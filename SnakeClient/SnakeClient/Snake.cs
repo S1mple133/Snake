@@ -42,21 +42,23 @@ namespace SnakeClient
         public static void RemoveOfflineSnakes(int[] usedIDs)
         {
             int[] snakeListIDs = GetAllIDs();
+            bool shouldBeRemoved;
 
             for (int i = 0; i < snakeListIDs.Length; i++)
             {
-                bool isInArr = false;
+                shouldBeRemoved = true;
                 for (int j = 0; j < usedIDs.Length; j++)
                 {
                     if (snakeListIDs[i] == usedIDs[j])
                     {
-                        isInArr = true;
+                        shouldBeRemoved = false;
                         break;
                     }
                 }
-                if (!isInArr)
+
+                if(shouldBeRemoved)
                 {
-                    GetSnake(snakeListIDs[i]).Remove();
+                    GetSnake(i).Remove();
                 }
             }
         }
@@ -101,6 +103,11 @@ namespace SnakeClient
             Head.X = x;
             Head.Y = y;
 
+            if (Length == 0)
+            {
+                Snakes.Remove(this);
+                return;
+            }
             Tail.Add(tempPos);
             if (Tail.Count() >= Length)
                 Tail.RemoveAt(0);

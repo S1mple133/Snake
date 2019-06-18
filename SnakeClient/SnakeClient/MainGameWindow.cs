@@ -80,17 +80,10 @@ namespace SnakeClient
             float offset = 2;
 
             Graphics frame = e.Graphics;
-
-
-
-            //Draw Boarder
-            frame.FillRectangle(new SolidBrush(Color.White), 0, 0, Canvas.Width, offset);
-            frame.FillRectangle(new SolidBrush(Color.White), 0, 0, offset, Canvas.Height);
-            frame.FillRectangle(new SolidBrush(Color.White), 0, Canvas.Height - offset, Canvas.Width, offset);
-            frame.FillRectangle(new SolidBrush(Color.White), Canvas.Width - offset, 0, offset, Canvas.Height);
-
-            //Draw snakes
-            Game.DrawSnakes(e, scale, offset);
+            
+            Game.DrawSnakes(e, ref frame, scale, offset);
+            Game.DrawWindowBoarder(e, ref frame, Canvas.Width, Canvas.Height, offset);
+            Game.DrawGameBoarder(e, ref frame, scale, offset);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

@@ -53,9 +53,8 @@ namespace SnakeClient
             Client.Send(Player);
         }
 
-        public static Graphics DrawSnakes(PaintEventArgs e, int scale, float offset)
+        public static void DrawSnakes(PaintEventArgs e, ref Graphics frame, int scale, float offset)
         {
-            Graphics frame = e.Graphics;
             Snake[] snakes = Snake.GetSnakes();
 
             foreach (Snake s in snakes)
@@ -64,17 +63,31 @@ namespace SnakeClient
                 for (int i = 0; i < tail.Length; i++)
                     if (s.Head.IsInBounds(Player.Position.X - Util.ZOOM / 2, Player.Position.Y - Util.ZOOM / 2, Player.Position.X + Util.ZOOM / 2, Player.Position.Y + Util.ZOOM / 2))
                         frame.FillRectangle(new SolidBrush(s.TailColor),
-                            (tail[i].X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
-                            (tail[i].Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
+                            (tail[i].X - (Player.Position.X - Util.ZOOM / 2)) * scale + offset,
+                            (tail[i].Y - (Player.Position.Y - Util.ZOOM / 2)) * scale + offset,
                             scale, scale);
-
-                frame.FillRectangle(new SolidBrush(s.HeadColor),
-                    (s.Head.X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
-                    (s.Head.Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
-                    scale, scale);
+                if (s.Head.IsInBounds(Player.Position.X - Util.ZOOM / 2, Player.Position.Y - Util.ZOOM / 2, Player.Position.X + Util.ZOOM / 2, Player.Position.Y + Util.ZOOM / 2))
+                {
+                    frame.FillRectangle(new SolidBrush(s.HeadColor),
+                        (s.Head.X - (Player.Position.X - Util.ZOOM / 2)) * scale + offset,
+                        (s.Head.Y - (Player.Position.Y - Util.ZOOM / 2)) * scale + offset,
+                        scale, scale);
+                }
+                else Console.WriteLine("OUTSIDE: " + new Random().Next());
             }
+        }
 
-            return frame;
+        public static void DrawGameBoarder(PaintEventArgs e, ref Graphics frame, int scale, float offset)
+        {
+
+        }
+
+        public static void DrawWindowBoarder(PaintEventArgs e, ref Graphics frame, int canvasWidth, int canvasHeight, float offset)
+        {
+            frame.FillRectangle(new SolidBrush(Color.White), 0, 0, canvasWidth, offset);
+            frame.FillRectangle(new SolidBrush(Color.White), 0, 0, offset, canvasHeight);
+            frame.FillRectangle(new SolidBrush(Color.White), 0, canvasHeight - offset, canvasWidth, offset);
+            frame.FillRectangle(new SolidBrush(Color.White), canvasWidth - offset, 0, offset, canvasHeight);
         }
 
         static public void DisconnectFromServer()

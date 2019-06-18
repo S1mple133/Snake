@@ -19,5 +19,12 @@ namespace SnakeClient
             X = x;
             Y = y;
         }
+
+        public bool IsInBounds(int x1, int y1, int x2, int y2)
+        {
+            if(X >= x1 && Y >= y1 && X <= x2 && Y <= y2)
+                return true;
+            return false;
+        }
     }
 }

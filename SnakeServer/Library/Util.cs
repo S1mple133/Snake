@@ -11,9 +11,9 @@ namespace Util
 {
     public class Util
     {
-        private const int sIZE = 25; // Size of board
+        private const int sIZE = 255; // Size of board
         private const string banFileName = "banned.csv"; // Name of ban file
-        private const int sNAKE_LENGTH = 4; // Default snake length
+        private const int sNAKE_LENGTH = 40; // Default snake length
         private const int mAX_PLAYERS = 10; // Max players
         private const bool dEBUG = false; // Debug mode
         private const int pORT = 4396; // Port to listen for

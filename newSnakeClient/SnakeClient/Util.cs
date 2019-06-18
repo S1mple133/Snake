@@ -4,6 +4,7 @@
     {
         public static int MAX_PLAYERS;
         public static int GRID_SIZE;
+        public const int ZOOM = 25;
         public static int ONLINE_PLAYERS;
         public static int TICK_INTERVAL = 250;
         public static string IP_ADDRESS;

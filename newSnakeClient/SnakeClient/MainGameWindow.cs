@@ -31,6 +31,9 @@ namespace SnakeClient
                 this.Bounds = Screen.PrimaryScreen.Bounds;
                 this.Canvas.Size = new Size(Canvas.Height, Canvas.Height);
                 this.onlinePlayersLabel.Location = new Point(Canvas.Height + 5, 10);
+
+                this.miniMap.Size = new Size(miniMap.Width, miniMap.Width);
+
             }
             else
             {
@@ -38,6 +41,8 @@ namespace SnakeClient
                 this.Canvas.Size = new Size(Canvas.Height, Canvas.Height);
                 this.onlinePlayersLabel.Location = new Point(Canvas.Height + 5, 10);
                 this.CenterToScreen();
+
+                this.miniMap.Size = new Size(miniMap.Width, miniMap.Width);
             }
         }
 
@@ -49,6 +54,8 @@ namespace SnakeClient
             if (!isFullscreen)
                 this.Size = new Size(Canvas.Height + 200, Canvas.Height);
             this.onlinePlayersLabel.Location = new Point(Canvas.Height + 5, 10);
+
+            this.miniMap.Size = new Size(miniMap.Width, miniMap.Width);
         }
 
         private void GameLoop_Tick(object sender, EventArgs e)
@@ -61,14 +68,16 @@ namespace SnakeClient
             }
 
             Canvas.Invalidate();
+            miniMap.Invalidate();
         }
 
         private void UpdateCanvas(object sender, PaintEventArgs e)
         {
             Snake[] snakes = Snake.GetSnakes();
 
-            int scale = Canvas.Height / Util.GRID_SIZE;
-            float offset = (Canvas.Height - scale * Util.GRID_SIZE) / 2;
+            int scale = Canvas.Height / Util.ZOOM;
+            //float offset = (Canvas.Height - scale * Util.GRID_SIZE) / 2;
+            float offset = 2;
 
             Graphics frame = e.Graphics;
 
@@ -83,9 +92,16 @@ namespace SnakeClient
             {
                 Position[] tail = s.GetTail();
                 for (int i = 0; i < tail.Length; i++)
-                    frame.FillRectangle(new SolidBrush(s.TailColor), tail[i].X * scale + offset, tail[i].Y * scale + offset, scale, scale);
+                    if (s.Head.IsInBounds(s.Head.X - Util.ZOOM / 2, s.Head.Y - Util.ZOOM / 2, s.Head.X + Util.ZOOM / 2, s.Head.Y + Util.ZOOM / 2))
+                        frame.FillRectangle(new SolidBrush(s.TailColor),
+                            (tail[i].X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
+                            (tail[i].Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
+                            scale, scale);
 
-                frame.FillRectangle(new SolidBrush(s.HeadColor), s.Head.X * scale + offset, s.Head.Y * scale + offset, scale, scale);
+                frame.FillRectangle(new SolidBrush(s.HeadColor),
+                    (s.Head.X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
+                    (s.Head.Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
+                    scale, scale);
             }
         }
 
@@ -114,6 +130,33 @@ namespace SnakeClient
         public void SetOnlinePlayersLabel(int players)
         {
             onlinePlayersLabel.Text = "Online Players: " + players;
+        }
+
+        private void UpdateMinimap(object sender, PaintEventArgs e)
+        {
+            Snake[] snakes = Snake.GetSnakes();
+
+            int scale = miniMap.Height / Util.GRID_SIZE;
+            //float offset = (miniMap.Height - scale * Util.GRID_SIZE) / 2;
+            float offset = 2;
+
+            Graphics frame = e.Graphics;
+
+            //Draw Boarder
+            frame.FillRectangle(new SolidBrush(Color.White), 0, 0, miniMap.Width, offset);
+            frame.FillRectangle(new SolidBrush(Color.White), 0, 0, offset, miniMap.Height);
+            frame.FillRectangle(new SolidBrush(Color.White), 0, miniMap.Height - offset, miniMap.Width, offset);
+            frame.FillRectangle(new SolidBrush(Color.White), miniMap.Width - offset, 0, offset, miniMap.Height);
+
+            //Draw snakes
+            foreach (Snake s in snakes)
+            {
+                Position[] tail = s.GetTail();
+                for (int i = 0; i < tail.Length; i++)
+                    frame.FillRectangle(new SolidBrush(Color.White), tail[i].X * scale + offset, tail[i].Y * scale + offset, scale, scale);
+
+                frame.FillRectangle(new SolidBrush(Color.White), s.Head.X * scale + offset, s.Head.Y * scale + offset, scale, scale);
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace SnakeClient
 {
@@ -49,6 +51,30 @@ namespace SnakeClient
             Player.UpdatePosition();
 
             Client.Send(Player);
+        }
+
+        public static Graphics DrawSnakes(PaintEventArgs e, int scale, float offset)
+        {
+            Graphics frame = e.Graphics;
+            Snake[] snakes = Snake.GetSnakes();
+
+            foreach (Snake s in snakes)
+            {
+                Position[] tail = s.GetTail();
+                for (int i = 0; i < tail.Length; i++)
+                    if (s.Head.IsInBounds(Player.Position.X - Util.ZOOM / 2, Player.Position.Y - Util.ZOOM / 2, Player.Position.X + Util.ZOOM / 2, Player.Position.Y + Util.ZOOM / 2))
+                        frame.FillRectangle(new SolidBrush(s.TailColor),
+                            (tail[i].X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
+                            (tail[i].Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
+                            scale, scale);
+
+                frame.FillRectangle(new SolidBrush(s.HeadColor),
+                    (s.Head.X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
+                    (s.Head.Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
+                    scale, scale);
+            }
+
+            return frame;
         }
 
         static public void DisconnectFromServer()

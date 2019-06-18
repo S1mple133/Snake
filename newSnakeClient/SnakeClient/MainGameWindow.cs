@@ -81,6 +81,8 @@ namespace SnakeClient
 
             Graphics frame = e.Graphics;
 
+
+
             //Draw Boarder
             frame.FillRectangle(new SolidBrush(Color.White), 0, 0, Canvas.Width, offset);
             frame.FillRectangle(new SolidBrush(Color.White), 0, 0, offset, Canvas.Height);
@@ -88,21 +90,7 @@ namespace SnakeClient
             frame.FillRectangle(new SolidBrush(Color.White), Canvas.Width - offset, 0, offset, Canvas.Height);
 
             //Draw snakes
-            foreach (Snake s in snakes)
-            {
-                Position[] tail = s.GetTail();
-                for (int i = 0; i < tail.Length; i++)
-                    if (s.Head.IsInBounds(s.Head.X - Util.ZOOM / 2, s.Head.Y - Util.ZOOM / 2, s.Head.X + Util.ZOOM / 2, s.Head.Y + Util.ZOOM / 2))
-                        frame.FillRectangle(new SolidBrush(s.TailColor),
-                            (tail[i].X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
-                            (tail[i].Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
-                            scale, scale);
-
-                frame.FillRectangle(new SolidBrush(s.HeadColor),
-                    (s.Head.X - (s.Head.X - Util.ZOOM / 2)) * scale + offset,
-                    (s.Head.Y - (s.Head.Y - Util.ZOOM / 2)) * scale + offset,
-                    scale, scale);
-            }
+            Game.DrawSnakes(e, scale, offset);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

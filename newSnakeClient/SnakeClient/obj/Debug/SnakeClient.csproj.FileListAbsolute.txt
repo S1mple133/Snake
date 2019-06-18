@@ -81,3 +81,14 @@ C:\Users\Niklas\Desktop\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.c
 C:\Users\Niklas\Desktop\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csproj.CoreCompileInputs.cache
 C:\Users\Niklas\Desktop\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.exe
 C:\Users\Niklas\Desktop\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.pdb
+U:\Github\Snake\newSnakeClient\SnakeClient\bin\Debug\SnakeClient.exe.config
+U:\Github\Snake\newSnakeClient\SnakeClient\bin\Debug\SnakeClient.exe
+U:\Github\Snake\newSnakeClient\SnakeClient\bin\Debug\SnakeClient.pdb
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csprojAssemblyReference.cache
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.MainGameWindow.resources
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.Properties.Resources.resources
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.ReadSettings.resources
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csproj.GenerateResource.cache
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.csproj.CoreCompileInputs.cache
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.exe
+U:\Github\Snake\newSnakeClient\SnakeClient\obj\Debug\SnakeClient.pdb

@@ -9,7 +9,7 @@ namespace SnakeClient
 
         static public Player Player;
 
-        static private Client Client;
+        static public Client Client;
         static private Random random;
 
         static public void Setup()
@@ -29,14 +29,14 @@ namespace SnakeClient
             Client.Send(Player);
         }
 
-        static public void Loop()
+        static public void Loop(int onlinePlayers)
         {
-            byte[] buffer = Client.Receive(Util.MAX_PLAYERS * 4 + 1);
+            byte[] buffer = Client.Receive(Util.MAX_PLAYERS * 4);
 
-            int[] usedIDs = new int[buffer[0]];
+            int[] usedIDs = new int[onlinePlayers];
             int idx = 0;
 
-            for (int i = 1; i < buffer[0] * 4 + 1; i += 4)
+            for (int i = 0; i < onlinePlayers * 4 ; i += 4)
             {
                 Snake actSnake = Snake.GetSnake(buffer[i]);
 

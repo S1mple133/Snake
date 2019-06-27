@@ -11,7 +11,7 @@ namespace Util
 {
     public class Util
     {
-        private const int sIZE = 101; // Size of board
+        private const int sIZE = 255; // Size of board
         private const int zOOM = 25;
         private const string banFileName = "banned.csv"; // Name of ban file
         private const int sNAKE_LENGTH = 40; // Default snake length

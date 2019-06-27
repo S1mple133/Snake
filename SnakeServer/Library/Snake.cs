@@ -295,7 +295,7 @@ namespace Util
         /// <returns></returns>
         private byte[] GetData()
         {
-            byte[] data = new byte[Util.MAX_PLAYERS * 4 + 1];
+            byte[] data = new byte[Util.MAX_PLAYERS * 4 +1];
             data[0] = (byte)snakeList.Count;
             Snake snake;
             int cnt = 1;

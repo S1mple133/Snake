@@ -8,10 +8,26 @@ namespace SnakeClient
     public partial class MainGameWindow : Form
     {
         bool isFullscreen = false;
-
+        public enum KickCode
+        {
+            KICK,
+            BAN,
+            DEAD,
+            NONE
+        }
+        static string[,] KICKCODES = new string[,] {
+            { "0", "Kicked" },
+            {"1","Banned"},
+            {"2","Dead"},
+            {"3","None"}};
         public MainGameWindow()
         {
             InitializeComponent();
+
+            kickCodeLabel.Text = "";
+            SetFullscreen(false);
+
+            reconnectButton.Hide();
 
             Util.LoadConfig(Util.SETTINGS_FILE_NAME);
 
@@ -31,6 +47,8 @@ namespace SnakeClient
                 this.Bounds = Screen.PrimaryScreen.Bounds;
                 this.Canvas.Size = new Size(Canvas.Height, Canvas.Height);
                 this.onlinePlayersLabel.Location = new Point(Canvas.Height + 5, 10);
+                this.kickCodeLabel.Location = new Point(Canvas.Height + 5, 30);
+                this.reconnectButton.Location = new Point(Canvas.Height + 5, 60);
 
                 this.miniMap.Size = new Size(miniMap.Width, miniMap.Width);
 
@@ -40,6 +58,8 @@ namespace SnakeClient
                 this.Size = new Size(Screen.PrimaryScreen.Bounds.Height / 2 + 200, Screen.PrimaryScreen.Bounds.Height / 2);
                 this.Canvas.Size = new Size(Canvas.Height, Canvas.Height);
                 this.onlinePlayersLabel.Location = new Point(Canvas.Height + 5, 10);
+                this.kickCodeLabel.Location = new Point(Canvas.Height + 5, 30);
+                this.reconnectButton.Location = new Point(Canvas.Height + 5, 60);
                 this.CenterToScreen();
 
                 this.miniMap.Size = new Size(miniMap.Width, miniMap.Width);
@@ -56,11 +76,31 @@ namespace SnakeClient
             this.onlinePlayersLabel.Location = new Point(Canvas.Height + 5, 10);
 
             this.miniMap.Size = new Size(miniMap.Width, miniMap.Width);
+            Console.WriteLine(miniMap.Width);
         }
 
         private void GameLoop_Tick(object sender, EventArgs e)
         {
-            Game.Loop();
+            byte[] onlinePlayers = Game.Client.Receive(1);
+
+            if (onlinePlayers[0] == 0)
+            {
+                byte[] kickCode = Game.Client.Receive(1);
+                kickCodeLabel.Text = kickCode[0].ToString();
+
+                string kC = KICKCODES[3,1];
+                for (int i = 0; i < KICKCODES.GetLength(0); i++)
+                {
+                    if (KICKCODES[i, 0] == kickCode[0].ToString())
+                        kC = KICKCODES[i, 1];
+                }
+                kickCodeLabel.Text = kC;
+                GameLoop.Stop();
+                reconnectButton.Show();
+                Game.DisconnectFromServer();
+            }
+            else
+                Game.Loop(onlinePlayers[0]);
             if (Snake.GetSnakeAmount() != Util.ONLINE_PLAYERS)
             {
                 Util.ONLINE_PLAYERS = Snake.GetSnakeAmount();
@@ -116,10 +156,13 @@ namespace SnakeClient
         {
             Snake[] snakes = Snake.GetSnakes();
 
-            int scale = miniMap.Height / Util.GRID_SIZE;
-            //float offset = (miniMap.Height - scale * Util.GRID_SIZE) / 2;
-            float offset = 2;
-
+            float scale = (float)miniMap.Width / Util.GRID_SIZE;
+            float offset = (miniMap.Width - scale * Util.GRID_SIZE) / 2;
+            //Console.WriteLine(miniMap.Width + " " + scale + " " + (miniMap.Width - (float)scale * Util.GRID_SIZE));
+            //float offset = 2;
+            if (offset < 1)
+                offset = 1;
+            scale = -1;
             Graphics frame = e.Graphics;
 
             //Draw Boarder
@@ -141,6 +184,17 @@ namespace SnakeClient
 
                 frame.FillRectangle(snakeColor, s.Head.X * scale + offset, s.Head.Y * scale + offset, scale, scale);
             }
+        }
+
+        private void reconnectButton_Click(object sender, EventArgs e)
+        {
+            kickCodeLabel.Hide();
+
+            GameLoop.Start();
+            Game.Setup();
+
+            reconnectButton.Hide();
+
         }
     }
 }

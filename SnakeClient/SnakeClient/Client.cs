@@ -23,9 +23,11 @@ namespace SnakeClient
 
         public void Disconnect()
         {
-            server.Shutdown(SocketShutdown.Both);
-            server.Disconnect(true);
-
+            if (server.Connected)
+            {
+                server.Shutdown(SocketShutdown.Both);
+                server.Disconnect(true);
+            }
         }
 
         public byte[] Receive(int bufferSize)
